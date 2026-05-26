@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- FIX: ngăn iOS Safari tự chuyển sang light mode -->
+<meta name="color-scheme" content="dark"/>
+<meta name="supported-color-schemes" content="dark"/>
+<title>Elise Nguyen Photography · San Jose, CA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+/*
+  ╔══════════════════════════════════════════════════════════╗
+  ║  🎨 EASY EDIT — đổi ảnh ở đây                           ║
+  ║  Tìm /* IMG-1 */ đến /* IMG-5 */ bên dưới               ║
+  ╚══════════════════════════════════════════════════════════╝
+*/
+
+/* ── FIX: scope toàn bộ CSS vào #ep để không conflict với WordPress theme ── */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #02030d !important;
+  color-scheme: dark !important;
+}
+
+/* Reset chỉ trong scope của trang này */
+#ep, #ep * , #ep *::before, #ep *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* FIX: chặn browser tự invert màu trên iOS */
+  -webkit-text-size-adjust: 100%;
+}
+
+#ep {
+  /* Tất cả màu nền đều đặt explicit — không dùng transparency */
+  --bg:        #02030d;
+  --bg-2:      #04060f;
+  --bg-3:      #060810;
+  --bg-card:   #0a0c18;   /* card background — solid, không transparent */
+  --gold:      #c8a96e;
+  --gold-lt:   #e2c99a;
+  --cream:     #f0eadb;
+  --rose:      #c9a0a0;
+  --muted:     rgba(240,234,219,.42);
+  --border:    rgba(200,169,110,.18);
+  --border-w:  rgba(255,255,255,.1);
+
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  /* FIX: đảm bảo dark mode */
+  color-scheme: dark;
+}
+
+/* ══ CANVAS VAN GOGH ══ */
+#ep #vg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0; display: block;
+}
+
+/* ══ NAV ══ */
+#ep nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  padding: 1.1rem 2rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid transparent;
+  transition: background .5s, border-color .5s;
+  /* FIX: explicit background — không để transparent ban đầu trên WP */
+  background: transparent;
+}
+#ep nav.scrolled {
+  /* FIX: solid color thay vì rgba quá nhạt */
+  background: #06080f;
+  border-bottom-color: var(--border);
+}
+#ep .logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-weight: 400;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--cream) !important; text-decoration: none;
+}
+#ep .logo span { color: var(--gold) !important; }
+#ep .nav-links { display: flex; gap: 2rem; list-style: none; }
+#ep .nav-links a {
+  font-size: .68rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted) !important;
+  text-decoration: none !important; transition: color .3s;
+}
+#ep .nav-links a:hover { color: var(--cream) !important; }
+#ep .btn-book {
+  font-size: .66rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--bg) !important; background: var(--gold) !important;
+  padding: .5rem 1.2rem; text-decoration: none !important;
+  font-family: 'Jost', sans-serif; font-weight: 500;
+  transition: background .3s, transform .2s; white-space: nowrap;
+  display: inline-block;
+}
+#ep .btn-book:hover { background: var(--gold-lt) !important; transform: scale(1.03); }
+
+/* ══ HERO ══ */
+#ep .hero {
+  position: relative; height: 100vh; min-height: 600px;
+  overflow: hidden; z-index: 1;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  background: var(--bg); /* FIX: fallback nếu canvas chưa load */
+}
+#ep .hero-content {
+  position: relative; z-index: 10;
+  padding: 0 1.5rem; max-width: 860px;
+  margin-bottom: 18vh;
+}
+#ep .hero-eyebrow {
+  font-size: .64rem; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.6rem;
+  opacity: 0; animation: ep-fadeUp 1s ease-out .5s forwards;
+}
+#ep .hero-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem,9vw,6.8rem);
+  font-weight: 300; line-height: 1; color: var(--cream) !important;
+  text-shadow: 0 2px 60px #000, 0 0 120px rgba(0,0,20,.8);
+  opacity: 0; animation: ep-fadeUp 1.1s ease-out .7s forwards;
+}
+#ep .hero-h1 em {
+  font-style: italic; color: var(--gold-lt) !important;
+  text-shadow: 0 0 80px rgba(200,169,110,.6), 0 2px 60px #000;
+}
+#ep .hero-divider {
+  width: 100px; height: 1px;
+  background: linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin: 1.5rem auto;
+  opacity: 0; animation: ep-fadein 1s ease-out .95s forwards;
+}
+#ep .hero-sub {
+  font-size: clamp(.84rem,2.2vw,.96rem);
+  color: rgba(240,234,219,.6); max-width: 460px;
+  margin: 0 auto 2.4rem; line-height: 1.9;
+  text-shadow: 0 1px 20px #000;
+  opacity: 0; animation: ep-fadeUp 1.1s ease-out 1s forwards;
+}
+#ep .hero-btns {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  opacity: 0; animation: ep-fadeUp 1.1s ease-out 1.2s forwards;
+}
+#ep .scroll-cue {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  z-index: 10; display: flex; flex-direction: column;
+  align-items: center; gap: .5rem;
+  opacity: 0; animation: ep-fadeUp 1s ease-out 1.7s forwards;
+}
+#ep .scroll-cue span {
+  font-size: .52rem; letter-spacing: .32em; text-transform: uppercase;
+  color: rgba(240,234,219,.3);
+}
+#ep .scroll-cue-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom,var(--gold),transparent);
+  animation: ep-scline 2.2s ease-in-out infinite;
+}
+
+@keyframes ep-scline { 0%,100%{opacity:.2;transform:scaleY(.8)} 50%{opacity:.8;transform:scaleY(1.1) translateY(4px)} }
+@keyframes ep-fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+@keyframes ep-fadein { to{opacity:1} }
+
+/* ══ BUTTONS ══ */
+#ep .btn-gold {
+  font-family: 'Jost', sans-serif; font-size: .68rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--bg) !important;
+  background: var(--gold) !important;
+  padding: .85rem 2rem; text-decoration: none !important;
+  font-weight: 500; border: none; cursor: pointer;
+  transition: background .3s,transform .2s; display: inline-block;
+}
+#ep .btn-gold:hover { background: var(--gold-lt) !important; transform: scale(1.03); }
+#ep .btn-outline {
+  font-family: 'Jost', sans-serif; font-size: .68rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--cream) !important;
+  background: rgba(2,3,13,.6) !important;
+  padding: .85rem 2rem; text-decoration: none !important;
+  font-weight: 400; border: 1px solid rgba(255,255,255,.25) !important;
+  cursor: pointer; transition: border-color .3s,background .3s,transform .2s; display: inline-block;
+}
+#ep .btn-outline:hover { border-color: var(--gold) !important; background: rgba(200,169,110,.12) !important; transform: scale(1.03); }
+
+/* ══ CONTENT SECTIONS ══ */
+#ep .content { position: relative; z-index: 2; }
+#ep .section-tag {
+  font-size: .58rem; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .9rem; display: block;
+}
+#ep .section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem,4.5vw,3.5rem);
+  font-weight: 300; line-height: 1.1; color: var(--cream) !important;
+}
+#ep .section-title em { font-style: italic; color: var(--gold-lt) !important; }
+
+/* ══ GALLERY ══ */
+#ep .gallery-section {
+  /* FIX: solid dark bg — không dùng rgba + backdrop-filter */
+  padding: 6rem 2rem;
+  background: #04060f;
+}
+#ep .gallery-header {
+  max-width: 1100px; margin: 0 auto 2.5rem;
+  display: flex; justify-content: space-between;
+  align-items: flex-end; flex-wrap: wrap; gap: 1rem;
+}
+#ep .gallery-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 260px 260px;
+  gap: .8rem;
+}
+#ep .gi:nth-child(1) { grid-row: span 2; }
+#ep .gi:nth-child(4) { grid-column: span 2; }
+
+#ep .gi {
+  overflow: hidden; position: relative;
+  cursor: pointer; background: #0a0c18;
+}
+#ep .gi img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  filter: brightness(.82) contrast(1.06) saturate(.8);
+  transition: transform .8s ease, filter .5s;
+}
+#ep .gi:hover img { transform: scale(1.07); filter: brightness(1) contrast(1.06) saturate(.95); }
+#ep .gi-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(2,3,13,.8) 0%, transparent 55%);
+  opacity: 0; transition: opacity .4s;
+  display: flex; align-items: flex-end; padding: 1.2rem; z-index: 2;
+}
+#ep .gi:hover .gi-overlay { opacity: 1; }
+#ep .gi-tag {
+  font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold-lt); background: rgba(2,3,13,.7);
+  padding: .28rem .7rem; border: 1px solid rgba(200,169,110,.3);
+}
+
+/* ── placeholder nếu ảnh không load ── */
+#ep .gi-placeholder {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #0a0c18 0%, #0f1225 100%);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1;
+}
+#ep .gi-placeholder span {
+  font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(200,169,110,.3);
+}
+
+#ep .gallery-cta { text-align: center; margin-top: 2.5rem; }
+
+/* ══ ABOUT ══ */
+#ep .about-section {
+  /* FIX: explicit solid dark bg */
+  padding: 7rem 2rem;
+  background: var(--bg);
+}
+#ep .about-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4.5rem; align-items: center;
+}
+#ep .about-photo { position: relative; }
+#ep .about-frame {
+  overflow: hidden; aspect-ratio: 3/4; max-height: 540px;
+  position: relative; background: #0a0c18;
+}
+#ep .about-frame::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 65%, rgba(2,3,13,.6) 100%);
+  pointer-events: none; z-index: 1;
+}
+#ep .about-frame img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: brightness(.82) contrast(1.08) saturate(.78);
+  transition: transform .9s ease, filter .6s;
+}
+#ep .about-frame:hover img { transform: scale(1.05); filter: brightness(.92) saturate(.88); }
+#ep .acc1 { position: absolute; bottom: -1.2rem; right: -1.2rem; width: 140px; height: 140px; border: 1px solid var(--gold); z-index: -1; opacity: .35; }
+#ep .acc2 { position: absolute; top: -.8rem; left: -.8rem; width: 60px; height: 60px; border: 1px solid var(--rose); z-index: -1; opacity: .3; }
+#ep .about-text p { font-size: .95rem; line-height: 1.9; color: rgba(240,234,219,.65) !important; margin-bottom: 1.2rem; }
+#ep .about-text p strong { color: var(--gold-lt) !important; font-weight: 400; }
+#ep .stats {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1.2rem; margin-top: 2.2rem; padding-top: 2rem;
+  border-top: 1px solid var(--border-w);
+}
+#ep .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; color: var(--gold) !important; line-height: 1; }
+#ep .stat-lbl { font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: .3rem; display: block; }
+
+/* ══ PACKAGES ══ */
+#ep .packages-section {
+  /* FIX: solid dark bg */
+  padding: 7rem 2rem;
+  background: #04060f;
+}
+#ep .pkg-inner { max-width: 1100px; margin: 0 auto; }
+#ep .pkg-header { text-align: center; margin-bottom: 3.5rem; }
+#ep .pkg-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.2rem; }
+
+#ep .pkg-card {
+  padding: 2rem 1.6rem;
+  /* FIX: solid background thay vì glass + backdrop-filter */
+  background: #0c0e1c;
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: border-color .4s, transform .35s;
+  display: flex; flex-direction: column;
+}
+#ep .pkg-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0); transition: transform .5s;
+}
+#ep .pkg-card:hover { border-color: rgba(200,169,110,.4); transform: translateY(-4px); }
+#ep .pkg-card:hover::before { transform: scaleX(1); }
+#ep .pkg-card.featured { border-color: rgba(200,169,110,.45); background: #0f1020; }
+#ep .pkg-card.featured::before { transform: scaleX(1); }
+#ep .pkg-badge {
+  font-size: .52rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--bg) !important; background: var(--gold) !important;
+  padding: .2rem .6rem; align-self: flex-start; margin-bottom: 1.2rem;
+  display: inline-block;
+}
+#ep .pkg-icon { font-size: 1.6rem; margin-bottom: 1.2rem; display: block; }
+#ep .pkg-name-vi { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--cream) !important; line-height: 1.1; }
+#ep .pkg-name-en { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; display: block; }
+#ep .pkg-price { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; color: var(--gold) !important; line-height: 1; margin: 1rem 0 .2rem; display: block; }
+#ep .pkg-price-sub { font-size: .62rem; letter-spacing: .1em; color: rgba(240,234,219,.4) !important; margin-bottom: 1.2rem; display: block; }
+#ep .pkg-divider { height: 1px; background: var(--border); margin-bottom: 1.2rem; }
+#ep .pkg-features { list-style: none; display: flex; flex-direction: column; gap: .55rem; flex: 1; }
+#ep .pkg-features li { font-size: .82rem; color: rgba(240,234,219,.6) !important; display: flex; gap: .6rem; align-items: flex-start; }
+#ep .pkg-features li::before { content: '—'; color: var(--gold) !important; flex-shrink: 0; font-size: .75rem; margin-top: .05rem; }
+#ep .pkg-cta { margin-top: 1.8rem; }
+
+/* ══ CONTACT ══ */
+#ep .contact-section {
+  /* FIX: solid bg */
+  padding: 7rem 2rem; text-align: center;
+  background: var(--bg);
+  position: relative; overflow: hidden;
+}
+#ep .contact-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(200,169,110,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+#ep .contact-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
+#ep .contact-sub { font-size: .95rem; color: rgba(240,234,219,.55) !important; line-height: 1.9; margin-bottom: 2.8rem; }
+#ep .contact-cards { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 2.8rem; }
+#ep .ccard {
+  /* FIX: solid bg */
+  background: #0c0e1c !important;
+  border: 1px solid var(--border) !important;
+  padding: 1.3rem 1.6rem;
+  display: flex; flex-direction: column;
+  align-items: center; gap: .3rem; min-width: 160px;
+  transition: border-color .3s; text-decoration: none !important;
+}
+#ep .ccard:hover { border-color: rgba(200,169,110,.5) !important; }
+#ep .ccard-icon { font-size: 1.2rem; }
+#ep .ccard-lbl { font-size: .52rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold) !important; display: block; }
+#ep .ccard-val { font-size: .86rem; color: var(--cream) !important; font-weight: 400; display: block; }
+
+/* ══ FOOTER ══ */
+#ep footer {
+  padding: 1.8rem 2rem; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem;
+  background: #030408;
+}
+#ep .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: .95rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+#ep .footer-copy { font-size: .62rem; color: rgba(240,234,219,.2); }
+
+/* ══ BILINGUAL STYLES ══ */
+/* Vietnamese translation — appears below English, smaller + muted */
+#ep .vi {
+  display: block;
+  font-size: .82em;
+  opacity: .5;
+  font-style: italic;
+  margin-top: .18em;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  letter-spacing: .02em;
+}
+/* Inline bilingual for small labels */
+#ep .vi-inline {
+  font-size: .8em;
+  opacity: .5;
+  font-style: italic;
+}
+/* Section tag bilingual */
+#ep .section-tag .vi { display: inline; font-size: .9em; opacity: .55; margin-top: 0; }
+
+/* ══ BOOKING FORM ══ */
+#ep .booking-section {
+  padding: 7rem 2rem;
+  background: #04060f;
+  position: relative; overflow: hidden;
+}
+#ep .booking-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(200,169,110,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+#ep .booking-inner {
+  max-width: 720px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+#ep .booking-header { text-align: center; margin-bottom: 3rem; }
+
+/* form grid */
+#ep .booking-form { display: flex; flex-direction: column; gap: 1.4rem; }
+#ep .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+/* field wrapper */
+#ep .field { display: flex; flex-direction: column; gap: .45rem; }
+#ep .field label {
+  font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); font-family: 'Jost', sans-serif; font-weight: 400;
+}
+#ep .field label .vi-inline { text-transform: none; }
+
+/* inputs & selects & textarea */
+#ep .field input,
+#ep .field select,
+#ep .field textarea {
+  background: #0c0e1c !important;
+  border: 1px solid var(--border) !important;
+  color: var(--cream) !important;
+  font-family: 'Jost', sans-serif;
+  font-size: .9rem;
+  font-weight: 300;
+  padding: .85rem 1rem;
+  outline: none;
+  transition: border-color .3s;
+  -webkit-appearance: none;
+  border-radius: 0;
+  width: 100%;
+}
+#ep .field input::placeholder,
+#ep .field textarea::placeholder { color: rgba(240,234,219,.25); }
+#ep .field input:focus,
+#ep .field select:focus,
+#ep .field textarea:focus { border-color: var(--gold) !important; }
+#ep .field select { cursor: pointer; }
+/* fix select arrow */
+#ep .field select option { background: #0c0e1c; color: var(--cream); }
+#ep .field textarea { resize: vertical; min-height: 110px; }
+
+/* submit button */
+#ep .form-submit {
+  margin-top: .6rem;
+  text-align: center;
+}
+#ep .btn-submit {
+  font-family: 'Jost', sans-serif; font-size: .72rem; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--bg) !important;
+  background: var(--gold) !important;
+  padding: 1rem 3rem; border: none; cursor: pointer;
+  font-weight: 500; transition: background .3s, transform .2s;
+  display: inline-block; width: 100%;
+}
+#ep .btn-submit:hover { background: var(--gold-lt) !important; transform: translateY(-2px); }
+#ep .btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+/* success / error states */
+#ep .form-status {
+  margin-top: 1.2rem; padding: 1rem 1.2rem; text-align: center;
+  font-size: .85rem; line-height: 1.6; display: none;
+}
+#ep .form-status.success {
+  display: block;
+  background: rgba(100,200,100,.08);
+  border: 1px solid rgba(100,200,100,.25);
+  color: #8fda8f;
+}
+#ep .form-status.error {
+  display: block;
+  background: rgba(200,80,80,.08);
+  border: 1px solid rgba(200,80,80,.25);
+  color: #e08080;
+}
+
+@media(max-width:600px){
+  #ep .form-row { grid-template-columns: 1fr; }
+  #ep .booking-section { padding: 5rem 1.5rem; }
+}
+
+/* ══ REVEAL ANIMATIONS ══ */
+#ep .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s ease; }
+#ep .reveal.visible { opacity: 1 !important; transform: translateY(0) !important; }
+#ep .d1{transition-delay:.1s} #ep .d2{transition-delay:.22s} #ep .d3{transition-delay:.34s}
+
+/* ══ MOBILE ══ */
+@media(max-width:900px){
+  #ep nav { padding: 1rem 1.2rem; }
+  #ep .nav-links { display: none; }
+  #ep .hero-content { margin-bottom: 26vh; }
+  #ep .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  #ep .gi { aspect-ratio: 1/1; }
+  #ep .gi:nth-child(1) { grid-row: auto; grid-column: span 2; aspect-ratio: 16/9; }
+  #ep .gi:nth-child(4) { grid-column: span 2; aspect-ratio: 16/9; }
+  #ep .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  #ep .pkg-grid { grid-template-columns: 1fr 1fr; }
+  #ep .gallery-section, #ep .packages-section,
+  #ep .about-section, #ep .contact-section { padding: 5rem 1.5rem; }
+}
+@media(max-width:600px){
+  #ep .hero-h1 { font-size: clamp(2.3rem,10vw,3.2rem) !important; }
+  #ep .hero-btns { flex-direction: column; align-items: center; }
+  #ep .hero-content { margin-bottom: 30vh; }
+  #ep .gallery-grid { grid-template-columns: 1fr; }
+  #ep .gi { aspect-ratio: 4/3 !important; grid-column: auto !important; }
+  #ep .pkg-grid { grid-template-columns: 1fr; }
+  #ep .stats { grid-template-columns: 1fr 1fr; }
+  #ep .contact-cards { flex-direction: column; align-items: center; }
+  #ep footer { flex-direction: column; text-align: center; }
+  #ep .acc1, #ep .acc2 { display: none; }
+  #ep .about-frame { aspect-ratio: 4/3; max-height: 300px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ╔═════════════════════════════════════════════╗
+     ║  TẤT CẢ NẰM TRONG #ep để tránh conflict WP ║
+     ╚═════════════════════════════════════════════╝ -->
+<div id="ep">
+
+<nav id="ep-nav">
+  <a class="logo" href="#"><span>E.</span> Nguyen</a>
+  <ul class="nav-links">
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#contact">Book</a></li>
+  </ul>
+  <a class="btn-book" href="#contact">Book Now</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <canvas id="vg"></canvas>
+  <div class="hero-content">
+    <p class="hero-eyebrow">San Jose, California · Event & Children Photography</p>
+    <h1 class="hero-h1">
+      Every child is<br/>
+      the <em>main character</em><br/>
+      of their story.
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">
+      Authentic, cinematic moments — captured with warmth and heart.
+      From milestone birthdays to family gatherings, your memories, beautifully preserved.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-gold">Book a Session</a>
+      <a href="#gallery" class="btn-outline">View Gallery</a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<div class="content">
+
+  <!-- ══ GALLERY ══ -->
+  <section class="gallery-section" id="gallery">
+    <div class="gallery-header reveal">
+      <div>
+        <span class="section-tag">Portfolio</span>
+        <h2 class="section-title">Moments that <em>matter.</em></h2>
+      </div>
+      <a href="https://photos.app.goo.gl/ziXbvwzq41WXP6xq9" target="_blank" rel="noopener" class="btn-outline">Full Gallery ↗</a>
+    </div>
+
+    <div class="gallery-grid">
+
+      <!-- IMG-1: thay src bằng link ảnh của bạn -->
+      <div class="gi reveal">
+        <div class="gi-placeholder"><span>Loading…</span></div>
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczMWpIE0DXdRb5yiuBA32I1ATNW-0DebqdVdIsswYEGyD--jmPs6l2M65cyQlXLZLNCQQaaKak_wFJmgYgkMmm3FAFJ_6hughL8iUuFp0HPGtQkUaTY=w1200-h800"
+          alt="Event photography" loading="lazy"
+          onload="this.previousElementSibling.style.display='none'"
+          onerror="this.style.display='none'"
+        />
+        <div class="gi-overlay"><span class="gi-tag">Event</span></div>
+      </div>
+
+      <!-- IMG-2 -->
+      <div class="gi reveal d1">
+        <div class="gi-placeholder"><span>Loading…</span></div>
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczP1wNxU5KAvQUA4B8JvrWwDVT37TfXsSeOSiXgr378Y-zMu90T38sh7m32PKka2yCTOGvKRzRlSlXuJUGbSP-HHNWyjI9POnehg--0MaCRCh_u0twU=w1200-h800"
+          alt="Family photography" loading="lazy"
+          onload="this.previousElementSibling.style.display='none'"
+          onerror="this.style.display='none'"
+        />
+        <div class="gi-overlay"><span class="gi-tag">Family</span></div>
+      </div>
+
+      <!-- IMG-3 -->
+      <div class="gi reveal d2">
+        <div class="gi-placeholder"><span>Loading…</span></div>
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczPt98sAjP_jt-mO1rakA8-qz_J5skmka-c4eK3EhR95d-IpzKmzVQsbdYM3W93zbWvvQwnN55Twak4nnKMMnquLjXuDrWKiMU0BtSd_k_v6c-7iN44=w1200-h800"
+          alt="Kids photography" loading="lazy"
+          onload="this.previousElementSibling.style.display='none'"
+          onerror="this.style.display='none'"
+        />
+        <div class="gi-overlay"><span class="gi-tag">Kids</span></div>
+      </div>
+
+      <!-- IMG-4 -->
+      <div class="gi reveal d1">
+        <div class="gi-placeholder"><span>Loading…</span></div>
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczMTT450YY_RdAs4pV-mzLrJRFDruyHWbiOFqV996kJ_XeqtQH5sT4ZSJ7X_7v6QYjO-w-1a3pxkrXM9ri0hOBrLr0CYAUHJPpAJRDHK-h2rYHU_eFk=w1200-h800"
+          alt="Celebration" loading="lazy"
+          onload="this.previousElementSibling.style.display='none'"
+          onerror="this.style.display='none'"
+        />
+        <div class="gi-overlay"><span class="gi-tag">Celebration</span></div>
+      </div>
+
+      <!-- IMG-5 -->
+      <div class="gi reveal d2">
+        <div class="gi-placeholder"><span>Loading…</span></div>
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczOR2Qe01U0zIVOsf9cgfyfm1xcthtOXfbnWVmkna4OxfhJRUapzGV8bpc6qO6BqLvmVKBP3HkmPX7qTyntjjicQZhb9QlDo00cptmhrpTFZyFIUW-E=w1200-h800"
+          alt="Moments" loading="lazy"
+          onload="this.previousElementSibling.style.display='none'"
+          onerror="this.style.display='none'"
+        />
+        <div class="gi-overlay"><span class="gi-tag">Moments</span></div>
+      </div>
+
+    </div>
+    <div class="gallery-cta reveal">
+      <a href="https://photos.app.goo.gl/ciuRMeWdETH3dFQx7" target="_blank" rel="noopener" class="btn-outline">More Photos ↗</a>
+    </div>
+  </section>
+
+  <!-- ══ ABOUT ══ -->
+  <section class="about-section" id="about">
+    <div class="about-inner">
+      <div class="about-photo reveal">
+        <div class="about-frame">
+          <!-- ABOUT IMG: thay src bên dưới -->
+          <img
+            src="https://lh3.googleusercontent.com/pw/AP1GczPIvLkWugaXGZQ8NP6ilk4HUdO2F3Nim7zkdT4jlTpv0RQlYFUfjauSrBlH6C3BSt47rm2HbGdTh4zsw2te-nsWCTmXrJY3zc3Klv9QAsVQeyGBY3I=w1200-h800"
+            alt="Elise Nguyen Photography"
+            onerror="this.style.opacity='0'"
+          />
+        </div>
+        <div class="acc1"></div>
+        <div class="acc2"></div>
+      </div>
+      <div class="about-text">
+        <span class="section-tag reveal">About</span>
+        <h2 class="section-title reveal d1">Capturing joy<br/>in its most <em>genuine</em> form.</h2>
+        <div style="height:1.2rem"></div>
+        <p class="reveal d2">I'm <strong>Elise Nguyen</strong>, a San Jose–based photographer who believes children deserve to be photographed like the little stars they are — unscripted, joyful, and completely themselves.</p>
+        <p class="reveal d2">Specializing in <strong>events and children</strong>, I bring a calm presence and a sharp eye to every shoot. Whether it's a first birthday, a family reunion, or a school celebration — I find the moments worth keeping.</p>
+        <div class="stats reveal d3">
+          <div><div class="stat-num">300+</div><span class="stat-lbl">Sessions</span></div>
+          <div><div class="stat-num">5★</div><span class="stat-lbl">Reviews</span></div>
+          <div><div class="stat-num">SJC</div><span class="stat-lbl">San Jose</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PACKAGES ══ -->
+  <section class="packages-section" id="packages">
+    <div class="pkg-inner">
+      <div class="pkg-header">
+        <span class="section-tag reveal">Packages</span>
+        <h2 class="section-title reveal d1">Choose the right package<br/><em>for you.</em></h2>
+      </div>
+      <div class="pkg-grid">
+        <div class="pkg-card reveal">
+          <span class="pkg-icon">⏱</span>
+          <div class="pkg-name-vi">2-Hour Session</div>
+          <span class="pkg-name-en">2 Tiếng · 2 Giờ</span>
+          <span class="pkg-price">$280</span>
+          <span class="pkg-price-sub">per session · mỗi buổi</span>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-features">
+            <li>2 hours of photography<span class="vi">2 giờ chụp ảnh</span></li>
+            <li>Professional color editing<span class="vi">Ảnh chỉnh màu chuyên nghiệp</span></li>
+            <li>Private online gallery<span class="vi">Online gallery riêng tư</span></li>
+            <li>Small events, family, milestones<span class="vi">Sự kiện nhỏ, gia đình, milestone</span></li>
+          </ul>
+          <div class="pkg-cta"><a href="#contact" class="btn-outline" style="width:100%;text-align:center;display:block">Book Now · <span class="vi-inline">Đặt Lịch</span></a></div>
+        </div>
+        <div class="pkg-card reveal d1">
+          <span class="pkg-icon">📸</span>
+          <div class="pkg-name-vi">3-Hour Session</div>
+          <span class="pkg-name-en">3 Tiếng · 3 Giờ</span>
+          <span class="pkg-price">$350</span>
+          <span class="pkg-price-sub">per session · mỗi buổi</span>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-features">
+            <li>3 hours of photography<span class="vi">3 giờ chụp ảnh</span></li>
+            <li>Professional color editing<span class="vi">Ảnh chỉnh màu chuyên nghiệp</span></li>
+            <li>Private online gallery<span class="vi">Online gallery riêng tư</span></li>
+            <li>Medium & large events<span class="vi">Sự kiện vừa & lớn</span></li>
+          </ul>
+          <div class="pkg-cta"><a href="#contact" class="btn-outline" style="width:100%;text-align:center;display:block">Book Now · <span class="vi-inline">Đặt Lịch</span></a></div>
+        </div>
+        <div class="pkg-card featured reveal d2">
+          <span class="pkg-badge">Most Popular · <span class="vi-inline">Phổ Biến Nhất</span></span>
+          <span class="pkg-icon">🎬</span>
+          <div class="pkg-name-vi">2-Hour + Video Highlight</div>
+          <span class="pkg-name-en">2 Tiếng + Video</span>
+          <span class="pkg-price">$380</span>
+          <span class="pkg-price-sub">per session · mỗi buổi</span>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-features">
+            <li>2 hours of photography<span class="vi">2 giờ chụp ảnh</span></li>
+            <li>Short highlight video<span class="vi">Video highlight ngắn</span></li>
+            <li>Professional color editing<span class="vi">Ảnh chỉnh màu chuyên nghiệp</span></li>
+            <li>Private online gallery<span class="vi">Online gallery riêng tư</span></li>
+          </ul>
+          <div class="pkg-cta"><a href="#contact" class="btn-gold" style="width:100%;text-align:center;display:block">Book Now · <span class="vi-inline">Đặt Lịch</span></a></div>
+        </div>
+        <div class="pkg-card reveal d3">
+          <span class="pkg-icon">🌟</span>
+          <div class="pkg-name-vi">3-Hour + Video Highlight</div>
+          <span class="pkg-name-en">3 Tiếng + Video</span>
+          <span class="pkg-price">$450</span>
+          <span class="pkg-price-sub">per session · mỗi buổi</span>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-features">
+            <li>3 hours of photography<span class="vi">3 giờ chụp ảnh</span></li>
+            <li>Full highlight video<span class="vi">Video highlight đầy đủ</span></li>
+            <li>Professional color editing<span class="vi">Ảnh chỉnh màu chuyên nghiệp</span></li>
+            <li>Private online gallery<span class="vi">Online gallery riêng tư</span></li>
+          </ul>
+          <div class="pkg-cta"><a href="#contact" class="btn-outline" style="width:100%;text-align:center;display:block">Book Now · <span class="vi-inline">Đặt Lịch</span></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BOOKING FORM ══ -->
+  <!--
+    ╔══════════════════════════════════════════════════════════╗
+    ║  📧 FORMSPREE SETUP — làm 1 lần duy nhất:               ║
+    ║  1. Vào formspree.io → Sign up miễn phí                  ║
+    ║  2. New Form → nhập email của bạn                        ║
+    ║  3. Copy Form ID (dạng: xyzabcde)                        ║
+    ║  4. Thay YOUR_FORM_ID bên dưới bằng ID đó                ║
+    ║  Xong! Form sẽ gửi email về hộp thư của bạn.            ║
+    ╚══════════════════════════════════════════════════════════╝
+  -->
+  <section class="booking-section" id="contact">
+    <div class="booking-inner">
+      <div class="booking-header">
+        <span class="section-tag reveal">Book a Session · <span class="vi-inline">Đặt Lịch Chụp</span></span>
+        <h2 class="section-title reveal d1">
+          Let's capture<br/><em>your story.</em>
+        </h2>
+        <p class="contact-sub reveal d2" style="margin-top:1rem">
+          Fill out the form below and I'll get back to you within 24 hours.<br/>
+          <span class="vi" style="font-size:.9em">Điền form bên dưới — t sẽ liên hệ lại trong vòng 24 giờ!</span>
+        </p>
+      </div>
+
+      <!-- ACTION: thay YOUR_FORM_ID bằng Formspree ID của bạn -->
+      <form
+        class="booking-form reveal"
+        id="booking-form"
+        action="https://formspree.io/f/xredoalv"
+        method="POST"
+      >
+        <!-- Hidden fields for context -->
+        <input type="hidden" name="_subject" value="📸 New Booking Request — Elise Nguyen Photography"/>
+        <input type="hidden" name="_template" value="table"/>
+        <input type="text" name="_gotcha" style="display:none"/> <!-- honeypot spam filter -->
+
+        <!-- Row 1: Name + Phone -->
+        <div class="form-row">
+          <div class="field">
+            <label for="f-name">Full Name · <span class="vi-inline">Họ & Tên</span></label>
+            <input type="text" id="f-name" name="name"
+              placeholder="Your full name" required/>
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone / Text · <span class="vi-inline">Số Điện Thoại</span></label>
+            <input type="tel" id="f-phone" name="phone"
+              placeholder="(xxx) xxx-xxxx" required/>
+          </div>
+        </div>
+
+        <!-- Row 2: Email + Event Date -->
+        <div class="form-row">
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email"
+              placeholder="your@email.com" required/>
+          </div>
+          <div class="field">
+            <label for="f-date">Event Date · <span class="vi-inline">Ngày Chụp</span></label>
+            <input type="date" id="f-date" name="event_date" required/>
+          </div>
+        </div>
+
+        <!-- Row 3: Package + Event Type -->
+        <div class="form-row">
+          <div class="field">
+            <label for="f-pkg">Package · <span class="vi-inline">Gói Chụp</span></label>
+            <select id="f-pkg" name="package" required>
+              <option value="" disabled selected>Select a package…</option>
+              <option value="2hr-$280">2-Hour Session — $280</option>
+              <option value="3hr-$350">3-Hour Session — $350</option>
+              <option value="2hr+video-$380">2-Hour + Video Highlight — $380 ⭐ Popular</option>
+              <option value="3hr+video-$450">3-Hour + Video Highlight — $450</option>
+              <option value="unsure">Not sure yet · Chưa biết</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-type">Event Type · <span class="vi-inline">Loại Sự Kiện</span></label>
+            <select id="f-type" name="event_type" required>
+              <option value="" disabled selected>Select event type…</option>
+              <option value="birthday">Birthday / Sinh nhật</option>
+              <option value="100-day">100-Day Celebration / Thôi Nôi</option>
+              <option value="family">Family Portrait / Ảnh Gia Đình</option>
+              <option value="reunion">Family Reunion / Họp Mặt</option>
+              <option value="graduation">Graduation / Tốt Nghiệp</option>
+              <option value="school">School Event / Sự Kiện Trường</option>
+              <option value="holiday">Holiday / Lễ</option>
+              <option value="other">Other / Khác</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 4: Location -->
+        <div class="field">
+          <label for="f-loc">Event Location · <span class="vi-inline">Địa Điểm</span></label>
+          <input type="text" id="f-loc" name="location"
+            placeholder="Address or area (e.g. San Jose, Milpitas…)"/>
+        </div>
+
+        <!-- Row 5: Notes -->
+        <div class="field">
+          <label for="f-notes">Additional Notes · <span class="vi-inline">Ghi Chú Thêm</span></label>
+          <textarea id="f-notes" name="notes"
+            placeholder="Tell me about your event, number of kids, any special requests… / Cho t biết thêm về buổi chụp nhé!"></textarea>
+        </div>
+
+        <!-- How did you find me -->
+        <div class="field">
+          <label for="f-ref">How did you find me? · <span class="vi-inline">Bạn biết t qua đâu?</span></label>
+          <select id="f-ref" name="referral">
+            <option value="" disabled selected>Select…</option>
+            <option value="google">Google Search</option>
+            <option value="instagram">Instagram</option>
+            <option value="facebook">Facebook</option>
+            <option value="tiktok">TikTok</option>
+            <option value="friend">Friend / Word of Mouth · Bạn bè giới thiệu</option>
+            <option value="other">Other / Khác</option>
+          </select>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn-submit" id="submit-btn">
+            Send Booking Request · <span class="vi-inline">Gửi Đơn Đặt Lịch</span>
+          </button>
+        </div>
+
+        <!-- Status messages -->
+        <div class="form-status success" id="form-success">
+          ✅ Message sent! I'll get back to you within 24 hours.<br/>
+          <span class="vi">Đã gửi! T sẽ liên hệ lại trong vòng 24 giờ.</span>
+        </div>
+        <div class="form-status error" id="form-error">
+          ❌ Something went wrong. Please email me directly or call (316) 257-8025.<br/>
+          <span class="vi">Có lỗi xảy ra. Vui lòng gọi hoặc nhắn tin (316) 257-8025.</span>
+        </div>
+
+      </form>
+
+      <!-- Quick contact info below form -->
+      <div class="contact-cards reveal" style="margin-top:3rem">
+        <a class="ccard" href="tel:3162578025">
+          <span class="ccard-icon">📞</span>
+          <span class="ccard-lbl">Call or Text</span>
+          <span class="ccard-val">(316) 257-8025</span>
+        </a>
+        <div class="ccard">
+          <span class="ccard-icon">📍</span>
+          <span class="ccard-lbl">Location</span>
+          <span class="ccard-val">San Jose, CA</span>
+        </div>
+        <a class="ccard" href="https://drive.google.com/drive/folders/1Q9eSV747F95TAtcc30S3CjgiVKRz21Ag" target="_blank" rel="noopener">
+          <span class="ccard-icon">🖼</span>
+          <span class="ccard-lbl">Portfolio</span>
+          <span class="ccard-val">View Samples ↗</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Elise Nguyen Photography</div>
+    <div class="footer-copy">© 2025 · San Jose, California · M139 Photography · All rights reserved</div>
+  </footer>
+
+</div><!-- /.content -->
+</div><!-- /#ep -->
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   VAN GOGH STARRY NIGHT — OPTIMIZED
+   ✅ Auto-detects weak devices → reduces particles
+   ✅ Pauses when hero is off-screen (IntersectionObserver)
+   ✅ Pauses when tab is hidden (visibilitychange)
+   ✅ Caches sky gradient (no re-create every frame)
+   ✅ Throttles to 30fps on weak devices
+   ✅ Uses DPR=1 on mobile to halve pixel count
+═══════════════════════════════════════════════════════ */
+(function(){
+  const cv = document.getElementById('vg');
+  if (!cv) return;
+
+  /* ── detect device performance tier ── */
+  const isMobile   = /Mobi|Android/i.test(navigator.userAgent);
+  const isLowEnd   = isMobile && (navigator.hardwareConcurrency || 4) <= 4;
+  // LOW: old phones  MED: mid-range  HIGH: desktop/new iphones
+  const TIER = isLowEnd ? 'LOW' : isMobile ? 'MED' : 'HIGH';
+
+  /* ── particle counts by tier ── */
+  const CFG = {
+    LOW:  { stars:120, orbs:8,  lav:80,  flows:6,  vortSteps:50,  fps:24 },
+    MED:  { stars:220, orbs:16, lav:160, flows:12, vortSteps:80,  fps:30 },
+    HIGH: { stars:380, orbs:28, lav:320, flows:18, vortSteps:120, fps:60 },
+  }[TIER];
+
+  const cx = cv.getContext('2d', { alpha: false }); // alpha:false = faster compositing
+  let W, H, t = 0;
+  let paused = false;         // off-screen or tab hidden
+  let skyGrad = null;         // cached sky gradient
+  let fgGrad  = null;         // cached foreground fade
+  let lastFrame = 0;
+  const frameDelta = 1000 / CFG.fps;
+
+  const r  = (a,b) => a + Math.random()*(b-a);
+  const ri = (a,b) => Math.floor(r(a,b+1));
+  let vortexes=[], flowLines=[], stars=[], glowOrbs=[], lavender=[], trees=[];
+
+  /* ── resize: use DPR=1 always on mobile to cut pixel load ── */
+  function resize(){
+    const hero = cv.parentElement;
+    const dpr  = isMobile ? 1 : Math.min(window.devicePixelRatio||1, 2);
+    W = hero.offsetWidth  || window.innerWidth;
+    H = hero.offsetHeight || window.innerHeight;
+    cv.width  = W * dpr;
+    cv.height = H * dpr;
+    cv.style.width  = W + 'px';
+    cv.style.height = H + 'px';
+    cx.scale(dpr, dpr);
+    skyGrad = null; fgGrad = null; // invalidate caches
+    build();
+  }
+
+  function build(){
+    vortexes=[]; flowLines=[]; stars=[]; glowOrbs=[]; lavender=[]; trees=[];
+    const skyH = H * .72;
+    const vCount = Math.max(2, Math.floor(W/280));
+    for(let i=0;i<vCount;i++)
+      vortexes.push({cx:r(W*.1,W*.9),cy:r(H*.04,skyH*.55),maxR:r(50,110),arms:ri(2,3),
+        speed:r(.006,.018)*(Math.random()<.5?1:-1),phase:r(0,Math.PI*2),
+        hue:ri(190,230),alpha:r(.16,.32),strokeW:r(.8,1.8),turns:r(2.5,4)});
+    for(let i=0;i<CFG.flows;i++)
+      flowLines.push({y0:r(0,skyH*.85),amplitude:r(18,65),freq:r(.003,.009),
+        speed:r(.007,.022),phase:r(0,Math.PI*2),
+        hue:Math.random()<.6?ri(190,230):ri(35,55),alpha:r(.04,.11),
+        thick:r(.8,2.4),xOff:r(0,W)});
+    for(let i=0;i<CFG.stars;i++)
+      stars.push({x:r(0,W),y:r(0,skyH*1.05),rad:r(.25,1.6),alpha:r(.25,.88),
+        ts:r(.018,.055),tp:r(0,Math.PI*2),
+        // pre-bake color string to avoid hsla() in hot path
+        col: Math.random()<.45
+          ? `rgba(255,${ri(220,245)},${ri(180,220)},`    // warm
+          : `rgba(${ri(200,230)},${ri(215,235)},255,`}); // cool
+    for(let i=0;i<CFG.orbs;i++)
+      glowOrbs.push({x:r(W*.02,W*.98),y:r(H*.01,skyH*.7),r:r(3,8),
+        alpha:r(.45,.9),ps:r(.025,.07),pp:r(0,Math.PI*2),halo:r(16,50),
+        warm:Math.random()<.7});
+    const fieldY = H * .80;
+    for(let i=0;i<CFG.lav;i++)
+      lavender.push({x:r(0,W),baseY:fieldY+r(-20,50),h:r(18,52),
+        phase:r(0,Math.PI*2),freq:r(.5,1.1),amp:r(4,13),
+        hue:ri(225,258),sat:ri(30,58),lit:ri(18,36),w:r(.6,1.7)});
+    [W*.12,W*.22,W*.72,W*.83,W*.92].forEach(x=>
+      trees.push({x:x+r(-20,20),baseY:H*r(.68,.78),h:H*r(.22,.34),
+        w:r(16,30),sway:r(.25,.7),phase:r(0,Math.PI*2)}));
+  }
+
+  /* ── sky: cached gradient ── */
+  function drawSky(){
+    if(!skyGrad){
+      skyGrad=cx.createLinearGradient(0,0,0,H);
+      skyGrad.addColorStop(0,'#020515');skyGrad.addColorStop(.15,'#030720');
+      skyGrad.addColorStop(.4,'#040a28');skyGrad.addColorStop(.65,'#060c22');
+      skyGrad.addColorStop(.78,'#081015');skyGrad.addColorStop(.88,'#060e0a');
+      skyGrad.addColorStop(1,'#020504');
+    }
+    cx.fillStyle=skyGrad; cx.fillRect(0,0,W,H);
+  }
+
+  /* ── vortex ── */
+  function drawVortex(v){
+    const rot=v.phase+t*v.speed;
+    cx.save(); cx.translate(v.cx,v.cy);
+    const steps=CFG.vortSteps;
+    for(let arm=0;arm<v.arms;arm++){
+      const ao=(arm/v.arms)*Math.PI*2;
+      cx.beginPath(); let first=true;
+      for(let s=0;s<=steps;s++){
+        const frac=s/steps,angle=rot+ao+frac*Math.PI*2*v.turns,rad=frac*v.maxR;
+        const px=Math.cos(angle)*rad, py=Math.sin(angle)*rad*.55;
+        if(first){cx.moveTo(px,py);first=false;}else cx.lineTo(px,py);
+      }
+      cx.strokeStyle=`hsla(${v.hue},80%,70%,${v.alpha*(0.5+0.5*Math.sin(t*.4+arm))})`;
+      cx.lineWidth=v.strokeW; cx.stroke();
+    }
+    // center glow — skip on LOW
+    if(TIER!=='LOW'){
+      const p=0.6+0.4*Math.sin(t*.8+v.phase);
+      const cg=cx.createRadialGradient(0,0,0,0,0,v.maxR*.22);
+      cg.addColorStop(0,`hsla(50,100%,95%,${v.alpha*p*1.5})`);
+      cg.addColorStop(.3,`hsla(${v.hue},90%,80%,${v.alpha*p})`);
+      cg.addColorStop(1,`hsla(${v.hue},80%,60%,0)`);
+      cx.beginPath(); cx.arc(0,0,v.maxR*.22,0,Math.PI*2);
+      cx.fillStyle=cg; cx.fill();
+    }
+    cx.restore();
+  }
+
+  /* ── flow lines: step 6px on mobile instead of 4 ── */
+  const flowStep = isMobile ? 7 : 4;
+  function drawFlow(fl){
+    cx.beginPath(); let mv=false;
+    for(let x=0;x<=W;x+=flowStep){
+      const y=fl.y0+Math.sin(x*fl.freq+t*fl.speed+fl.phase)*fl.amplitude
+                   +Math.sin(x*fl.freq*2.3+t*fl.speed*1.4)*fl.amplitude*.3;
+      if(!mv){cx.moveTo(x,y);mv=true;}else cx.lineTo(x,y);
+    }
+    cx.strokeStyle=`hsla(${fl.hue},75%,65%,${fl.alpha})`;
+    cx.lineWidth=fl.thick; cx.stroke();
+  }
+
+  /* ── stars: pre-baked color string ── */
+  function drawStar(s){
+    s.tp+=s.ts;
+    const al=s.alpha*(Math.sin(s.tp)*.4+.6);
+    cx.beginPath(); cx.arc(s.x,s.y,s.rad,0,Math.PI*2);
+    cx.fillStyle=s.col+al+')'; cx.fill();
+  }
+
+  /* ── orbs: skip outer halo on LOW ── */
+  function drawOrb(o){
+    o.pp+=o.ps;
+    const al=o.alpha*(Math.sin(o.pp)*.3+.7);
+    const hue=o.warm?ri(38,58):ri(190,215);
+    if(TIER!=='LOW'){
+      const og=cx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.halo);
+      og.addColorStop(0,`hsla(${hue},100%,90%,${al*.3})`);
+      og.addColorStop(1,`hsla(${hue},80%,60%,0)`);
+      cx.beginPath(); cx.arc(o.x,o.y,o.halo,0,Math.PI*2);
+      cx.fillStyle=og; cx.fill();
+    }
+    const ig=cx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r*1.6);
+    ig.addColorStop(0,`rgba(255,255,240,${al})`);
+    ig.addColorStop(1,`hsla(${hue},80%,60%,0)`);
+    cx.beginPath(); cx.arc(o.x,o.y,o.r*1.6,0,Math.PI*2);
+    cx.fillStyle=ig; cx.fill();
+  }
+
+  /* ── trees ── */
+  function drawTree(tr){
+    const sw=Math.sin(t*tr.sway+tr.phase)*2;
+    cx.save(); cx.translate(tr.x+sw,tr.baseY);
+    cx.beginPath(); cx.moveTo(0,0);
+    cx.bezierCurveTo(tr.w*.5,-tr.h*.1,tr.w*.6,-tr.h*.3,tr.w*.3,-tr.h*.5);
+    cx.bezierCurveTo(tr.w*.5,-tr.h*.55,tr.w*.4,-tr.h*.7,tr.w*.15,-tr.h*.85);
+    cx.bezierCurveTo(tr.w*.2,-tr.h*.88,tr.w*.1,-tr.h*.95,0,-tr.h);
+    cx.bezierCurveTo(-tr.w*.1,-tr.h*.95,-tr.w*.2,-tr.h*.88,-tr.w*.15,-tr.h*.85);
+    cx.bezierCurveTo(-tr.w*.4,-tr.h*.7,-tr.w*.5,-tr.h*.55,-tr.w*.3,-tr.h*.5);
+    cx.bezierCurveTo(-tr.w*.6,-tr.h*.3,-tr.w*.5,-tr.h*.1,0,0);
+    cx.closePath();
+    cx.fillStyle='rgba(2,6,3,.94)'; cx.fill();
+    if(TIER!=='LOW'){ cx.strokeStyle='rgba(30,80,180,.15)'; cx.lineWidth=1.2; cx.stroke(); }
+    cx.restore();
+  }
+
+  /* ── lavender ── */
+  function drawLav(b){
+    const sw=Math.sin(t*b.freq+b.phase)*b.amp;
+    cx.beginPath(); cx.moveTo(b.x,b.baseY);
+    cx.quadraticCurveTo(b.x+sw*.5,b.baseY-b.h*.55,b.x+sw,b.baseY-b.h);
+    cx.strokeStyle=`hsla(${b.hue},${b.sat}%,${b.lit}%,.85)`;
+    cx.lineWidth=b.w; cx.stroke();
+  }
+
+  /* ── foreground fade: cached ── */
+  function drawFg(){
+    if(!fgGrad){
+      fgGrad=cx.createLinearGradient(0,H*.75,0,H);
+      fgGrad.addColorStop(0,'rgba(1,3,2,0)');
+      fgGrad.addColorStop(.3,'rgba(1,3,2,.4)');
+      fgGrad.addColorStop(1,'rgba(1,3,2,.92)');
+    }
+    cx.fillStyle=fgGrad; cx.fillRect(0,H*.75,W,H*.25);
+  }
+
+  /* ── main loop with fps throttle ── */
+  function draw(ts){
+    requestAnimationFrame(draw);
+    if(paused) return;
+    if(ts - lastFrame < frameDelta) return; // fps cap
+    lastFrame = ts;
+    t += .012;
+    cx.clearRect(0,0,W,H);
+    drawSky();
+    for(const fl of flowLines) drawFlow(fl);
+    for(const s  of stars)     drawStar(s);
+    for(const v  of vortexes)  drawVortex(v);
+    for(const o  of glowOrbs)  drawOrb(o);
+    for(const tr of trees)     drawTree(tr);
+    for(const b  of lavender)  drawLav(b);
+    drawFg();
+  }
+
+  /* ── pause when off-screen ── */
+  const heroEl = cv.parentElement;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(entries=>{
+      paused = !entries[0].isIntersecting;
+    },{threshold:0.01}).observe(heroEl);
+  }
+
+  /* ── pause when tab hidden ── */
+  document.addEventListener('visibilitychange',()=>{
+    paused = document.hidden;
+  });
+
+  /* ── resize debounced ── */
+  window.addEventListener('resize',()=>{
+    clearTimeout(window._eprt);
+    window._eprt=setTimeout(resize,200);
+  });
+
+  requestAnimationFrame(()=>{ resize(); requestAnimationFrame(draw); });
+})();
+
+/* ── Booking form AJAX submit ── */
+(function(){
+  const form = document.getElementById('booking-form');
+  if(!form) return;
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const ok  = document.getElementById('form-success');
+    const err = document.getElementById('form-error');
+    ok.style.display='none'; err.style.display='none';
+    btn.disabled = true;
+    btn.textContent = 'Sending… / Đang gửi…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if(res.ok){
+        ok.style.display='block';
+        form.reset();
+        // scroll to success message
+        ok.scrollIntoView({behavior:'smooth', block:'center'});
+      } else {
+        err.style.display='block';
+      }
+    } catch(_){
+      err.style.display='block';
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Send Booking Request · <span class="vi-inline">Gửi Đơn Đặt Lịch</span>';
+    }
+  });
+})();
+(function(){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+  },{threshold:.1});
+  document.querySelectorAll('#ep .reveal').forEach(el=>io.observe(el));
+  const nav=document.getElementById('ep-nav');
+  window.addEventListener('scroll',()=>{
+    if(nav) nav.classList.toggle('scrolled',window.scrollY>60);
+  });
+})();
+</script>
+
+</body>
+</html>
